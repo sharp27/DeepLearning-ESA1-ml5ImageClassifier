@@ -58,11 +58,54 @@ function classifyImage(img) {
     if (error) {
       console.error(error);
     } else {
-      let resultText = `Label: ${results[0].label}, Confidence: ${nf(results[0].confidence, 0, 2)}`;
+      let resultText = `Label: ${results[0].label}, Confidence: ${(results[0].confidence * 100).toFixed(2)}%`;
       let resultDiv = createDiv(resultText);
       resultDiv.parent(img.elt.parentNode);
+
+      // Erstellen eines Containers für das Diagramm direkt unter dem Bild
+      let plotContainer = createDiv('');
+      plotContainer.style('width', '400px');
+      plotContainer.style('height', '300px');
+      plotContainer.parent(img.elt.parentNode);
+      plotContainer.class('plot');
+      
+      // Visualisierung der Ergebnisse als Balkendiagramm im neuen Container
+      plotResults(results, plotContainer.elt);
     }
   });
+}
+
+function plotResults(results, container) {
+  let labels = results.map(result => result.label);
+  let confidences = results.map(result => result.confidence * 100); // Umwandlung in Prozent
+
+  let data = [{
+    x: labels,
+    y: confidences,
+    type: 'bar',
+    text: confidences.map(String),
+    textposition: 'auto',
+    marker: {
+      color: 'rgb(158,202,225)',
+      opacity: 0.6,
+      line: {
+        color: 'rgb(8,48,107)',
+        width: 1.5
+      }
+    }
+  }];
+
+  let layout = {
+    title: 'Klassifikationsergebnisse',
+    xaxis: {
+      title: 'Label'
+    },
+    yaxis: {
+      title: 'Confidence (%)'
+    }
+  };
+
+  Plotly.newPlot(container, data, layout);
 }
 
 function imageLoaded() {
