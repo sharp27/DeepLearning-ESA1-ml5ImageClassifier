@@ -125,6 +125,12 @@ h2.no-margin-top {
     margin-top: 10px;
 }
 
+#discussion p, #documentation p {
+    hyphens: auto;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
 @media (min-width: 768px) {
     .row {
         display: flex;
