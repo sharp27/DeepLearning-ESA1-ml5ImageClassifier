@@ -125,10 +125,15 @@ h2.no-margin-top {
     margin-top: 10px;
 }
 
-#discussion p, #discussion li, #documentation p, #documentation li {
+#discussion p, #documentation p {
     hyphens: auto;
     word-wrap: break-word;
     text-align: justify;
+}
+
+#discussion li, #documentation li {
+    hyphens: auto;
+    word-wrap: break-word;
 }
 
 @media (min-width: 768px) {
