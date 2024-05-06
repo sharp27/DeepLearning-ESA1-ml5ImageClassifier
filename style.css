@@ -1,24 +1,141 @@
-﻿
-#imageContainer img {
-  margin: 10px;
-  float: left;
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    padding-top: 100px;
+    padding-bottom: 200px;
+}
+.navbar {
+    background-color: #e3f2fd; 
+    padding-left: 30px;
+    border-bottom: 2px solid #b3e5fc; 
 }
 
-#imageContainer div {
-  margin: 10px;
-  float: right;
-  align-self: center;
+.navbar a.nav-link {
+    color: #0277bd; 
 }
 
-#uploadContainer {
-  margin: 20px;
-  padding: 10px;
-  border: 2px dashed #ccc;
-  text-align: center;
+.navbar a.nav-link:hover, .navbar a.nav-link.active {
+    color: #d32f2f; 
+}
+
+.navbar-brand {
+    color: #0277bd; 
+}
+
+.nav-item {
+    margin-right: 15px; 
+}
+
+:target {
+    scroll-margin-top: 100px; /* Höhe der Navigationsleiste plus gewünschter Abstand */
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+p, li {
+    line-height: 1.6; 
+    font-size: 16px; 
+}
+
+a {
+    color: #007bff;
+    text-decoration: none; 
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    text-align: left;
+    margin-top: 80px;
+    margin-bottom: 20px;
+    color: #0056b3; 
+}
+
+h2.no-margin-top {
+    margin-top: 0;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.imageContainer img {
+    width: 100%; 
+    height: auto; 
+}
+
+.plotContainer {
+    width: 100%; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.plotContainer .plotly {
+    width: 100%; 
 }
 
 #dropZone {
-  padding: 20px;
-  background-color: #f8f8f8;
-  cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#alertBox {
+    color: red; 
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#uploadedImageContainer {
+    width: 100%;
+    display: none;
+    margin-bottom: 20px; 
+}
+
+.btn-primary {
+    width: 100%;
+    display: block; 
+    margin-top: 20px; 
+}
+
+.btn-success {
+    width: 100%;
+}
+
+#uploadedImage {
+    max-width: 100%;
+    height: auto;
+    display: block; 
+}
+
+#classifyButton {
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .imageContainer, .plotContainer {
+        width: 50%;
+    }
+
+    #classifyButton {
+        display: block;
+    }
 }

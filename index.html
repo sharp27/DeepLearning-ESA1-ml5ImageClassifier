@@ -3,36 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>Bildklassifikation mit ml5.js</title>
-    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.js"></script>
-    <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    -->
-    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
 </head>
-<body>
-  
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Bilderkennung mit ml5</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#positiveExamples">Positive Beispiele</a></li>
+                <li class="nav-item"><a class="nav-link" href="#negativeExamples">Negative Beispiele</a></li>
+                <li class="nav-item"><a class="nav-link" href="#customImages">Eigene Bilder</a></li>
+                <li class="nav-item"><a class="nav-link" href="#discussion">Diskussion</a></li>
+                <li class="nav-item"><a class="nav-link" href="#documentation">Dokumentation</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-  <h1>Image classification using MobileNet and p5.js</h1>
-  <div id="imageContainer" style="display: flex; flex-wrap: wrap;">
-    <!-- Bildcontainer werden hier dynamisch eingefügt -->
-  </div>
-  
-  <div id="plotContainer" style="width:100%;height:500px;"></div>
 
- <div id="uploadContainer">
-  <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-  <button onclick="document.getElementById('imageUpload').click()">Eigenes Bild hochladen</button>
-  <button id="classifyButton" style="display: none;">Jetzt klassifizieren</button>
-  <div id="dropZone">Ziehen Sie hierher ein eigenes Bild, um es zu klassifizieren.</div>
+    <div class="container mt-3 pt-3" id="mainContent">
+        <section id="positiveExamples" class="mb-4">
+            <h2 class="no-margin-top">Positive Beispiele</h2>
+                
+            
+        
+        </section>
+        <section id="negativeExamples" class="mb-4">
+            <h2>Negative Beispiele</h2>
+            
+        
+        </section>
+
+
+<section id="customImages" class="mb-4">
+    <h2>Eigene Bilder</h2>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Container für das hochgeladene Bild -->
+        <div class="mb-3">
+    <input type="file" id="imageUpload" accept="image/*" class="form-control" style="display: none;">
+    <div id="uploadedImageContainer" class="imageContainer" style="display: none;">
+        <img id="uploadedImage" src="#" alt="Hochgeladenes Bild">
+    </div>
+    <label class="btn btn-primary" for="imageUpload">Klicken Sie hier, um ein Bild hochzuladen</label>
+    <div id="dropZone" class="drop-zone">Oder ziehen Sie ein Bild hierher</div>
+    <div id="alertBox" style="display: none; color: red; margin-top: 10px;"></div>
 </div>
 
-<script src="sketch.js"></script>
+    </div>
+    <div class="col-md-6">
+        <!-- Container für den Klassifizierungsbutton und das Diagramm -->
+        <button id="classifyButton" style="display: none;" class="btn btn-success">Hochgeladenes Bild klassifizieren</button>
+        <div id="customPlots" class="plotContainer" style="width: 100%; height: auto; display: none;"></div>
+    </div>
+</div>
 
+</section>
+
+
+
+
+    <section id="discussion" class="mb-4">
+        <h2>Diskussion</h2>
+        <p>In meiner Untersuchung des ML5-Modells habe ich festgestellt, dass das Modell im Allgemeinen gut bei der Erkennung einer Vielzahl von Tieren und alltäglichen Gegenständen funktioniert. Dies deutet darauf hin, dass das Modell auf einem umfangreichen und vielfältigen Datensatz trainiert wurde, der diese Kategorien gut abdeckt.</p>
+        <p>Interessanterweise hat die Körperhaltung der Tiere in einigen Fällen zu Fehlklassifikationen geführt. Beispielsweise kann ein Hund, der in einer untypischen Pose fotografiert wurde, fälschlicherweise als ein anderes Tier, etwa ein Fuchs, identifiziert werden. Dies legt nahe, dass das Modell stark von der Darstellung der Objekte in seinen Trainingsdaten abhängt und dass ungewöhnliche Posen oder Winkel die Erkennungsgenauigkeit beeinträchtigen können.</p>
+        <p>Ein weiterer interessanter Aspekt meiner Beobachtungen ist, dass selbst wenn einige gebräuchliche Gegenstände klar im Bild erkennbar sind, sie manchmal völlig falsch klassifiziert werden. Dies könnte auf Einschränkungen in den Trainingsdaten zurückzuführen sein, insbesondere in Bezug auf die Vielfalt der Darstellungen jedes Objekts. Es könnte auch auf eine Übergeneralisierung des Modells hinweisen, das auf häufigere oder ähnlich aussehende Objekte in den Trainingsdaten trainiert wurde.</p>
+        <p>Zudem habe ich beobachtet, dass in Bildern, auf denen Menschen zusammen mit Gegenständen abgebildet sind, das ML5-Modell dazu neigt, die Gegenstände statt der Menschen (zum Beispiel ein Kind oder eine Frau) zu identifizieren. Dies könnte darauf hindeuten, dass das Modell besser darin ist, nicht-menschliche Objekte zu erkennen, möglicherweise wegen der höheren Variabilität in menschlichen Posen und Kontexten, die schwieriger korrekt zu klassifizieren sind.</p>
+    </section>
+    <section id="documentation" class="mb-4">
+        <h2>Dokumentation</h2>
+        <p><u>Verwendete Frameworks und Bibliotheken:</u></p>
+        <ul>
+            <li><b>ML5.js</b> ist ein Machine-Learning-Framework für das Web und basiert auf TensorFlow.js. Es wird verwendet, um das Klassifizieren von Bildern zu ermöglichen, indem vortrainierte Modelle wie MobileNet schnell und einfach in die Anwendung integriert werden können. ML5.js erleichtert den Zugang zu KI-Funktionalitäten ohne tiefgehende Kenntnisse in maschinellem Lernen.</li>
+            <li><b>Bootstrap 5</b> ist ein Frontend-Framework, das für das Design der Benutzeroberfläche verwendet wird. Es bietet responsive Layouts und vordefinierte Styles für Navigation, Buttons und andere UI-Komponenten, um eine konsistente und professionelle Darstellung zu gewährleisten.</li>
+            <li><b>Plotly.js</b> ist eine Bibliothek zur Datenvisualisierung, die hier genutzt wird, um die Ergebnisse der Bildklassifikation grafisch als Tortendiagramme darzustellen. Diese Diagramme zeigen die Wahrscheinlichkeit für jede identifizierte Klasse an und machen die Ergebnisse der KI-Bewertung visuell zugänglich und verständlich.</li>
+            <li><b>P5.js</b> ist eine Coding-Bibliothek, die bei der Arbeit mit Bildmedien hilft. In Ihrer Anwendung unterstützt sie das Laden und Anzeigen von Bildern sowie die Integration mit ML5 für die Bildklassifikation.</li>
+        </ul>
+        <br>
+        <p><u>Ansatz und Implementierung:</u></p>
+        <ol>
+            <li><b>Setup und Initialisierung:</b><br> Der Einstiegspunkt der Anwendung befindet sich in der setup-Funktion, die von P5.js bereitgestellt wird. Hier wird das ML5-Bildklassifikationsmodell (basierend auf MobileNet) initialisiert.</li>
+            <li><b>Bild-Upload und Event Handling:</b><br> Nutzer können Bilder über eine Datei-Upload-Schnittstelle oder per Drag-and-Drop hochladen. Event-Listener sind für das Hochladen von Bildern sowie für Drag-and-Drop-Ereignisse eingerichtet, um eine reibungslose Interaktion zu gewährleisten. Sobald ein Bild geladen ist, wird es im Browser angezeigt, und der Klassifizierungsbutton wird aktiviert.</li>
+            <li><b> Bildklassifikation:</b><br> Durch Klicken auf den "Klassifizieren"-Button wird das hochgeladene Bild klassifiziert. Die classifyImage-Funktion leitet das Bild an das ML5-Modell weiter, welches die Klassifizierungen und deren Wahrscheinlichkeiten zurückgibt. Diese Daten werden dann zur Visualisierung an Plotly.js übergeben, das die Ergebnisse in einem Tortendiagramm anzeigt.</li>
+            <li><b>Feedback und Visualisierung:</b><br> Die Anwendung bietet visuelles Feedback über den Status des Ladeprozesses. Fehlermeldungen werden angezeigt, falls die Bildverarbeitung nicht erfolgreich ist. Außerdem bekommt der Nutzer einen Hinweis, falls die hochgeladene Datei keinem gültigen Bild-Format entspricht. Zusätzlich ist die gesamte Benutzeroberfläche responsiv gestaltet, was bedeutet, dass sie auf verschiedenen Geräten und Bildschirmgrößen gut funktioniert.</li>
+        </ol>
+        <br>
+        <p><u>Resultate:</u></p>
+        <p>Die Anwendung ermöglicht es den Nutzern, eine breite Palette von Bildern effektiv zu klassifizieren. Die Ergebnisse zeigen, dass das Modell besonders gut bei klaren, gut beleuchteten Bildern mit deutlich sichtbaren Objekten funktioniert.</p>
+        <br>
+        <p><u>Quellen und Referenzen:</u></p>
+        <ul>
+            <li><a href="https://p5js.org/learn/">P5.js</a></li>
+            <li><a href="https://ml5js.org/">ML5.js</a></li>
+            <li><a href="https://arxiv.org/abs/1704.04861">MobileNet Paper</a></li>
+            <li><a href="https://getbootstrap.com/docs/">Bootstrap Dokumentation</a></li>
+            <li><a href="https://plotly.com/javascript/">Plotly.js</a></li>
+        </ul>
+    </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.3/lib/p5.js"></script>
+    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="sketch.js"></script>
 </body>
 </html>
