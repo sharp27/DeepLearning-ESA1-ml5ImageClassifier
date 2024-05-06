@@ -112,7 +112,7 @@ function handleCustomImageUpload(file) {
             
             // Verstecke das vorherige Diagramm
             document.getElementById('customPlots').style.display = 'none'; 
-            document.getElementById('customPlots').innerHTML = ''; // Lösche den Inhalt des Diagramm-Containers
+            document.getElementById('customPlots').innerHTML = ''; // LÃ¶sche den Inhalt des Diagramm-Containers
 
             lastLoadedImage = createImg(e.target.result, 'Uploaded Image');
             lastLoadedImage.style('display', 'none'); // Versteckt das p5.js Image-Objekt
@@ -125,7 +125,7 @@ function handleCustomImageUpload(file) {
 
 function imageLoaded(img, plotContainer) {
     console.log('Bild geladen:', img);
-    // Platzhaltertext einfügen, während die Klassifikation noch läuft
+    // Platzhaltertext einfÃ¼gen, wÃ¤hrend die Klassifikation noch lÃ¤uft
     const loadingText = document.createElement('p');
     loadingText.style.textAlign = 'center';
     plotContainer.appendChild(loadingText);
@@ -147,7 +147,7 @@ function classifyImage(img, plotContainer) {
             console.error(error);
             plotContainer.innerHTML = 'Fehler bei der Klassifikation!';
         } else {
-            plotContainer.innerHTML = ''; // Alten Inhalt löschen
+            plotContainer.innerHTML = ''; // Alten Inhalt lÃ¶schen
             displayResults(img, results, plotContainer);
         }
     });
@@ -159,7 +159,7 @@ function displayResults(img, results, plotContainer) {
 }
 
 function adjustLabel(label, maxLength = 20) {
-    if (label.length <= maxLength) return label; // Kein Umbruch nötig, wenn das Label kurz genug ist
+    if (label.length <= maxLength) return label; // Kein Umbruch nÃ¶tig, wenn das Label kurz genug ist
 
     // Suche das letzte Leerzeichen vor dem Limit
     let lastSpace = label.substring(0, maxLength).lastIndexOf(' ');
@@ -173,13 +173,13 @@ function adjustLabel(label, maxLength = 20) {
 
 function getColorsForPercentages(percentages) {
     return percentages.map(percent => {
-        if (percent >= 95) return 'rgb(27, 94, 32)'; // Dunkelgrün
-        else if (percent >= 90) return 'rgb(56, 142, 60)'; // Starkes Grün
-        else if (percent >= 85) return 'rgb(67, 160, 71)'; // Helles Starkgrün
-        else if (percent >= 80) return 'rgb(102, 187, 106)'; // Grasgrün
-        else if (percent >= 75) return 'rgb(129, 199, 132)'; // Blasses Grün
-        else if (percent >= 70) return 'rgb(165, 214, 167)'; // Sehr blasses Grün
-        else if (percent >= 65) return 'rgb(212, 225, 87)'; // Limonengrün
+        if (percent >= 95) return 'rgb(27, 94, 32)'; // DunkelgrÃ¼n
+        else if (percent >= 90) return 'rgb(56, 142, 60)'; // Starkes GrÃ¼n
+        else if (percent >= 85) return 'rgb(67, 160, 71)'; // Helles StarkgrÃ¼n
+        else if (percent >= 80) return 'rgb(102, 187, 106)'; // GrasgrÃ¼n
+        else if (percent >= 75) return 'rgb(129, 199, 132)'; // Blasses GrÃ¼n
+        else if (percent >= 70) return 'rgb(165, 214, 167)'; // Sehr blasses GrÃ¼n
+        else if (percent >= 65) return 'rgb(212, 225, 87)'; // LimonengrÃ¼n
         else if (percent >= 60) return 'rgb(255, 238, 88)'; // Helles Gelb
         else if (percent >= 55) return 'rgb(255, 213, 79)'; // Gelb
         else if (percent >= 50) return 'rgb(255, 183, 77)'; // Dunkelgelb
@@ -191,14 +191,14 @@ function getColorsForPercentages(percentages) {
         else if (percent >= 20) return 'rgb(198, 40, 40)'; // Dunkleres Rot
         else if (percent >= 15) return 'rgb(183, 28, 28)'; // Noch dunkleres Rot
         else if (percent >= 10) return 'rgb(162, 27, 30)'; // Sehr dunkles Rot
-        else return 'rgb(123, 31, 162)'; // Violett für sehr niedrige Werte
+        else return 'rgb(123, 31, 162)'; // Violett fÃ¼r sehr niedrige Werte
     });
 }
 
 
 function plotResults(results, container) {
     let totalConfidence = results.reduce((acc, result) => acc + result.confidence, 0);
-    let percentages = results.map(result => (result.confidence / totalConfidence * 100).toFixed(1)); // Nur eine Dezimalstelle
+    let percentages = results.map(result => (result.confidence * 100).toFixed(1)); // Nur eine Dezimalstelle
     let textLabels = percentages.map(percent => `${percent}%`);
     let colors = getColorsForPercentages(percentages); // Holt die Farben basierend auf den Prozentwerten
 
