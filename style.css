@@ -125,7 +125,7 @@ h2.no-margin-top {
     margin-top: 10px;
 }
 
-#discussion p, #documentation p {
+#discussion p, #discussion li, #documentation p, #documentation li {
     hyphens: auto;
     word-wrap: break-word;
     text-align: justify;
